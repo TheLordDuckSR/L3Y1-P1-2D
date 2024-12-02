@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         Health();
         
         MovementDirection();
-
+        UpdateAnimations();
         if (Input.GetKeyDown(KeyCode.X))
         {
             Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
@@ -103,6 +103,23 @@ public class PlayerController : MonoBehaviour
         isFacingRight = !isFacingRight;
         transform.Rotate(0.0f, 180.0f, 0.0f);
     }
+
+    void UpdateAnimations()
+    {
+        Animator anim = transform.GetChild(0).transform.GetComponent<Animator>();
+
+        anim.SetBool("IsGrounded", hit.collider);
+
+        if (inputs != 0)
+        {
+            anim.SetBool("IsMoving", true);
+        }
+        else
+        {
+            anim.SetBool("IsMoving", false);
+        }
+    }
+
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
