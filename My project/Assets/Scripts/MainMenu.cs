@@ -7,38 +7,34 @@ public class MainMenu : MonoBehaviour
 {
 
     public Canvas main;
+    public Canvas settings;
 
-    public Canvas options;
     // Start is called before the first frame update
     void Start()
     {
         main.enabled = true;
-        options.enabled = false;
+        settings.enabled = false;
     }
 
-  public void OnPlay()
-  {
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    public void OnPlay()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 
-  }
+    public void OnSettings()
+    {
+        main.enabled = false;
+        settings.enabled = true;
+    }
 
-  public void OnOptions()
-  {
-     main.enabled = false;
-     options.enabled = true;
-    
-  }
+    public void OnExit()
+    {
+        Application.Quit();
+    }
 
-  public void OnExit()
-  {
-      Application.Quit();
-    
-  }
-
-  public void OnBackToMain()
-  {
-
-     main.enabled = true;
-     options.enabled = false;
-  }
+    public void OnBackToMain()
+    {
+        main.enabled = true;
+        settings.enabled = false;
+    }
 }

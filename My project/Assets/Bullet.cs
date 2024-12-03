@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+
     public float moveSpeed;
 
+
+    // Start is called before the first frame update
     void Start()
     {
         Destroy(this.gameObject, 5f);
-    }
+        
+    }    
+    
+
     // Update is called once per frame
     void Update()
     {
-        transform.gameObject.GetComponent<Rigidbody2D>().velocity = transform.right * moveSpeed;
+         transform.gameObject.GetComponent<Rigidbody2D>().velocity = transform.right * moveSpeed;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -22,10 +28,11 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
         if (other.gameObject.CompareTag("Enemy"))
         {
             Destroy(other.gameObject);
         }
     }
+
+
 }

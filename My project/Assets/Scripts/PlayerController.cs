@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [Header("UI")]
     public TMP_Text timerTxt;
     public float timer;
-    // New
+
     [Header("Health")]
     public Slider healthSlider;
     public int maxHealth;
@@ -19,9 +20,7 @@ public class PlayerController : MonoBehaviour
     [Header("Shooting")]
     public Transform shootingPoint;
     public GameObject bullet;
-
     bool isFacingRight;
-    
 
     [Header("Main")]
     public float moveSpeed;
@@ -38,31 +37,26 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        healthSlider.maxValue = maxHealth;
-        startPos = transform.position;
-        currentHealth = maxHealth;
 
+        healthSlider.maxValue = maxHealth;
+
+        startPos = transform.position;
+
+        currentHealth = maxHealth;
         isFacingRight = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-
         timer += Time.deltaTime;
         timerTxt.text = timer.ToString("F2");
         
         Movement();
         Health();
-
         Shoot();
-
         MovementDirection();
         UpdateAnimations();
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
-        }
     }
 
     void Movement()
@@ -81,10 +75,12 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    // New
+
     void Health()
     {
+
         healthSlider.value = currentHealth;
+
         if (currentHealth <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -101,11 +97,11 @@ public class PlayerController : MonoBehaviour
 
     void MovementDirection()
     {
-        if (isFacingRight && inputs < -0.05f)
+        if (isFacingRight && inputs < -.1f)
         {
             Flip();
         }
-        else if (!isFacingRight && inputs > 0.05f)
+        else if (!isFacingRight && inputs > .1f)
         {
             Flip();
         }
@@ -114,7 +110,7 @@ public class PlayerController : MonoBehaviour
     void Flip()
     {
         isFacingRight = !isFacingRight;
-        transform.Rotate(0.0f, 180.0f, 0.0f);
+        transform.Rotate(0f, 180f, 0f);
     }
 
     void UpdateAnimations()
@@ -144,10 +140,9 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
-        // New
         if (other.gameObject.CompareTag("Enemy"))
         {
-            currentHealth -= 1;
+            currentHealth--;
             Destroy(other.gameObject);
         }
     }

@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+
     public Canvas inGame;
     public Canvas pauseMenu;
+    public Canvas settingsMenu;
 
-    public bool isPaused;
+    bool isPaused;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,7 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         inGame.enabled = true;
         pauseMenu.enabled = false;
+        settingsMenu.enabled = false; 
     }
 
     // Update is called once per frame
@@ -44,6 +47,12 @@ public class GameManager : MonoBehaviour
     public void OnPlay()
     {
         isPaused = false;
+    }
+
+    public void OnSettings()
+    {
+        pauseMenu.enabled = false;
+        settingsMenu.enabled = true;
     }
 
     public void OnExit()
