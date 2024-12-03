@@ -19,7 +19,9 @@ public class PlayerController : MonoBehaviour
     [Header("Shooting")]
     public Transform shootingPoint;
     public GameObject bullet;
+
     bool isFacingRight;
+    
 
     [Header("Main")]
     public float moveSpeed;
@@ -52,7 +54,9 @@ public class PlayerController : MonoBehaviour
         
         Movement();
         Health();
-        
+
+        Shoot();
+
         MovementDirection();
         UpdateAnimations();
         if (Input.GetKeyDown(KeyCode.X))
@@ -86,6 +90,15 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
+
+    void Shoot()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Instantiate(bullet, shootingPoint.position, shootingPoint.rotation);
+        }
+    }
+
     void MovementDirection()
     {
         if (isFacingRight && inputs < -0.05f)
